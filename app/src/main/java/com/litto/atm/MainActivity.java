@@ -23,13 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSharedPreferences("abc", MODE_PRIVATE)
-                .edit()
-                .putString("WORDS", "hahahaha")
-                .commit();
-        String s = getSharedPreferences("abc", MODE_PRIVATE)
-                .getString("WORDS", null);
-        Log.d(TAG, "onCreate: " + s);
+
+
 
 
 
@@ -57,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == RC_LOGIN && resultCode == RESULT_OK){
             String userid = data.getStringExtra("USERID");
             Log.d(TAG, "onActivityResult: " + userid);
+            getSharedPreferences("abc", MODE_PRIVATE)
+                    .edit()
+                    .putString("USERID", userid)
+                    .commit();
         }
     }
 
