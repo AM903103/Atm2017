@@ -49,8 +49,8 @@
         android:layout_height="wrap_content"
         android:onClick="login"
         android:text="Login"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="200dp" />
+        app:layout_constraintStart_toStartOf="@+id/ed_passwd"
+        app:layout_constraintTop_toBottomOf="@+id/ed_passwd" />
 
     <Button
         android:id="@+id/button2"
@@ -58,6 +58,6 @@
         android:layout_height="wrap_content"
         android:onClick="quit"
         android:text="Quit"
-        tools:layout_editor_absoluteX="127dp"
-        tools:layout_editor_absoluteY="200dp" />
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/ed_passwd" />
 </android.support.constraint.ConstraintLayout>
