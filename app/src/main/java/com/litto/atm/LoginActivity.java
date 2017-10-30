@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         if ("jack".equals(userid) &&
                 "1234".equals(passwd) ){
             getIntent().putExtra("USERID", userid);
-            setResult(RESULT_OK);
+            setResult(RESULT_OK, getIntent());
             finish();
         }
     }

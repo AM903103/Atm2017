@@ -13,6 +13,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int RC_LOGIN = 95;
+    private static final String TAG = MainActivity.class.getSimpleName();
     private boolean logon = false;
 
     @Override
@@ -33,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
         // if
         if (!logon){
             Intent intent = new Intent(this, LoginActivity.class);
-            startActivityForResult(intent, 100);
+            startActivityForResult(intent, RC_LOGIN);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK){
+        if (requestCode == RC_LOGIN && resultCode == RESULT_OK){
             String userid = data.getStringExtra("USERID");
-
+            Log.d(TAG, "onActivityResult: " + userid);
         }
     }
 
