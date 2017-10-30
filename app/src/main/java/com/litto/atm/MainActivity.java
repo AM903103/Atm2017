@@ -1,6 +1,7 @@
 package com.litto.atm;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSharedPreferences("abc", MODE_PRIVATE)
+                .edit()
+                .putString("WORDS", "hahahaha")
+                .commit();
+        String s = getSharedPreferences("abc", MODE_PRIVATE)
+                .getString("WORDS", null);
+        Log.d(TAG, "onCreate: " + s);
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
