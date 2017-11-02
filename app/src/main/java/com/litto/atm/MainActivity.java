@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -31,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
                         android.R.layout.simple_list_item_1,
                         getResources().getStringArray(R.array.drinks));
         list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: " + position);
+                String drink =
+                        getResources().getStringArray(R.array.drinks)[position];
+                Log.d(TAG, "onItemClick: " + drink);
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
