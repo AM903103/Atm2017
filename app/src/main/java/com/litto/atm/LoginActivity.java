@@ -4,22 +4,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
+    private CheckBox cbUserid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //
-        String userid = getSharedPreferences("abc", MODE_PRIVATE)
-                .getString("USERID", null);
-        Log.d(TAG, "onCreate: " + userid);
-        EditText edUserid = findViewById(R.id.ed_userid);
-        edUserid.setText(userid);
+        cbUserid = findViewById(R.id.cb_remember_userid);
+        cbUserid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                getSharedPreferences("abc", MODE_PRIVATE)
+                        .edit()
+                        .putBoolean("REMEMBER", isChecked)
+                        .apply();
+            }
+        });
+        boolean remember = getSharedPreferences("abc", MODE_PRIVATE)
+                .getBoolean("REMEMBER", false);
+        if (remember) {
+            String userid = getSharedPreferences("abc", MODE_PRIVATE)
+                    .getString("USERID", null);
+            Log.d(TAG, "onCreate: " + userid);
+            EditText edUserid = findViewById(R.id.ed_userid);
+            edUserid.setText(userid);
+        }
     }
 
     public void login(View view){
