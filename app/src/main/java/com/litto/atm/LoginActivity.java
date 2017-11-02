@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         boolean remember = getSharedPreferences("abc", MODE_PRIVATE)
                 .getBoolean("REMEMBER", false);
+        cbUserid.setChecked(remember);
         if (remember) {
             String userid = getSharedPreferences("abc", MODE_PRIVATE)
                     .getString("USERID", null);

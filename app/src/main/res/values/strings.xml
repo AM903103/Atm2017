@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Atm</string>
     <string name="action_settings">Settings</string>
+    <array name="drinks">
+        <item>珍奶1</item>
+        <item>珍奶2</item>
+        <item>珍奶3</item>
+    </array>
 </resources>
