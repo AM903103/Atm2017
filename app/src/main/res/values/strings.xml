@@ -7,10 +7,10 @@
         <item>珍奶3</item>
     </array>
     <array name="functions">
-        <item>功能1</item>
-        <item>功能2</item>
-        <item>功能3</item>
-        <item>功能4</item>
-        <item>功能5</item>
+        <item>餘額查詢</item>
+        <item>交易明細</item>
+        <item>最新消息</item>
+        <item>投資理財</item>
+        <item>離開</item>
     </array>
 </resources>

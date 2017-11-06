@@ -1,13 +1,13 @@
 package com.litto.atm;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,25 +16,33 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
+    int[] icons = {R.drawable.func_balance,
+            R.drawable.func_history,
+            R.drawable.func_news,
+            R.drawable.func_finance,
+            R.drawable.func_exit};
     private static final int RC_LOGIN = 95;
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean logon = false;
-    private String[] functions = getResources().getStringArray(R.array.functions);
+    private String[] functions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        setupListView();
+        functions = getResources().getStringArray(R.array.functions);
         GridView grid = findViewById(R.id.grid);
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(this,
-                        android.R.layout.simple_list_item_1,
-                        functions);
+        IconAdapter adapter = new IconAdapter();
+//        ArrayAdapter<String> adapter =
+//                new ArrayAdapter<String>(this,
+//                        android.R.layout.simple_list_item_1,
+//                        functions);
         grid.setAdapter(adapter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -49,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // if
-        if (!logon){
+        if (!logon) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, RC_LOGIN);
         }
@@ -77,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_LOGIN && resultCode == RESULT_OK){
+        if (requestCode == RC_LOGIN && resultCode == RESULT_OK) {
             String userid = data.getStringExtra("USERID");
             Log.d(TAG, "onActivityResult: " + userid);
             getSharedPreferences("abc", MODE_PRIVATE)
@@ -128,7 +136,19 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return null;
+            if (convertView == null){
+//                LayoutInflater layoutInflater =
+//                        LayoutInflater.from(parent.getContext());
+                View view = getLayoutInflater()
+                        .inflate(R.layout.icon_item, null);
+                ImageView image = view.findViewById(R.id.item_image);
+                TextView tv = view.findViewById(R.id.item_text);
+                tv.setText(functions[position]);
+                image.setImageResource(icons[position]);
+                convertView = view;
+            }
+
+            return convertView;
         }
     }
 }
