@@ -11,8 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,27 +23,19 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_LOGIN = 95;
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean logon = false;
+    private String[] functions = getResources().getStringArray(R.array.functions);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListView list = findViewById(R.id.list);
-//        String[] drinks = {"珍奶", "綠茶", "烏龍"};
+//        setupListView();
+        GridView grid = findViewById(R.id.grid);
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this,
                         android.R.layout.simple_list_item_1,
-                        getResources().getStringArray(R.array.drinks));
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemClick: " + position);
-                String drink =
-                        getResources().getStringArray(R.array.drinks)[position];
-                Log.d(TAG, "onItemClick: " + drink);
-            }
-        });
+                        functions);
+        grid.setAdapter(adapter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,6 +53,25 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, RC_LOGIN);
         }
+    }
+
+    private void setupListView() {
+        ListView list = findViewById(R.id.list);
+//        String[] drinks = {"珍奶", "綠茶", "烏龍"};
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this,
+                        android.R.layout.simple_list_item_1,
+                        getResources().getStringArray(R.array.drinks));
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: " + position);
+                String drink =
+                        getResources().getStringArray(R.array.drinks)[position];
+                Log.d(TAG, "onItemClick: " + drink);
+            }
+        });
     }
 
     @Override
@@ -93,5 +107,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    class IconAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return functions.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return functions[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return null;
+        }
     }
 }

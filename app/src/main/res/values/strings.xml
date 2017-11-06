@@ -6,4 +6,11 @@
         <item>珍奶2</item>
         <item>珍奶3</item>
     </array>
+    <array name="functions">
+        <item>功能1</item>
+        <item>功能2</item>
+        <item>功能3</item>
+        <item>功能4</item>
+        <item>功能5</item>
+    </array>
 </resources>
