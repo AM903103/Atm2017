@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     int[] icons = {R.drawable.func_balance,
             R.drawable.func_history,
             R.drawable.func_news,
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 //                        android.R.layout.simple_list_item_1,
 //                        functions);
         grid.setAdapter(adapter);
+        grid.setOnItemClickListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -117,6 +118,25 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view,
+                            int position, long itemId) {
+        Log.d(TAG, "onItemClick: " + position);
+        switch ((int)itemId){
+            case R.drawable.func_balance:
+                break;
+            case R.drawable.func_history:
+                break;
+            case R.drawable.func_news:
+                break;
+            case R.drawable.func_finance:
+                break;
+            case R.drawable.func_exit:  
+                finish();
+                break;
+        }
+    }
+
     class IconAdapter extends BaseAdapter {
 
         @Override
@@ -131,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public long getItemId(int position) {
-            return position;
+            return icons[position];
         }
 
         @Override
