@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -30,7 +31,11 @@ public class AddActivity extends AppCompatActivity {
         values.put("cdate", date);
         values.put("info", info);
         values.put("amount", amount);
-        dbHelper.getWritableDatabase()
+        long id = dbHelper.getWritableDatabase()
                 .insert("exp", null, values);
+        if (id != -1){
+            Toast.makeText(this,
+                    "新增成功", Toast.LENGTH_LONG).show();
+        }
     }
 }
