@@ -20,6 +20,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "cdate datetime not null, " +
                 "info varchar, " +
                 "amount integer)";
+        db.execSQL(sql);
     }
 
     @Override

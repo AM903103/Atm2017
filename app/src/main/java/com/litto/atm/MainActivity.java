@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DbHelper dbHelper = new DbHelper(this,
+                "expense.db", null, 1);
+        dbHelper.getReadableDatabase().execSQL("select 1");
+
 //        setupListView();
         functions = getResources().getStringArray(R.array.functions);
         GridView grid = findViewById(R.id.grid);
