@@ -130,8 +130,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case R.drawable.func_news:
                 break;
             case R.drawable.func_finance:
+                startActivity(new Intent(this, FinanceActivity.class));
                 break;
-            case R.drawable.func_exit:  
+            case R.drawable.func_exit:
                 finish();
                 break;
         }

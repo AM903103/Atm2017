@@ -13,4 +13,5 @@
         <item>投資理財</item>
         <item>離開</item>
     </array>
+    <string name="title_activity_finance">FinanceActivity</string>
 </resources>
