@@ -1,5 +1,6 @@
 package com.litto.atm;
 
+import android.content.ContentValues;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,12 @@ public class AddActivity extends AppCompatActivity {
         String date = edDate.getText().toString();
         String info = edInfo.getText().toString();
         int amount = Integer.parseInt(edAmount.getText().toString());
-
+        DbHelper dbHelper = new DbHelper(this);
+        ContentValues values = new ContentValues();
+        values.put("cdate", date);
+        values.put("info", info);
+        values.put("amount", amount);
+        dbHelper.getWritableDatabase()
+                .insert("exp", null, values);
     }
 }
