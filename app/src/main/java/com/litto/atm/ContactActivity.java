@@ -9,6 +9,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -40,8 +42,16 @@ public class ContactActivity extends AppCompatActivity {
 
     private void readContacts() {
         Log.d(TAG, "readContacts: ");
+        ListView list = findViewById(R.id.list);
         Cursor cursor = getContentResolver().query(
                 ContactsContract.Contacts.CONTENT_URI,
                 null, null, null, null);
+        String[] from = {ContactsContract.Contacts._ID,
+                ContactsContract.Contacts.DISPLAY_NAME};
+        int[] to = {android.R.id.text1, android.R.id.text2};
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+                android.R.layout.simple_list_item_2,
+                cursor, from , to);
+        list.setAdapter(adapter);
     }
 }
