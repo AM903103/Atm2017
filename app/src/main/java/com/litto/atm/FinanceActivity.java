@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 public class FinanceActivity extends AppCompatActivity {
 
@@ -25,13 +26,27 @@ public class FinanceActivity extends AppCompatActivity {
         Cursor cursor = dbHelper.getReadableDatabase()
                 .query("exp", null, null, null,
                         null, null, null);
-        while (cursor.moveToNext()){
+        String[] from = {"cdate", "info", "amount"};
+        int[] to = {R.id.row_date, R.id.row_info, R.id.row_amount};
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                this,
+//                android.R.layout.simple_list_item_2,
+                R.layout.row,
+                cursor,
+                from, to,
+//                new String[]{"cdate", "info"},
+//                new int[]{android.R.id.text1, android.R.id.text2},
+                0
+        );
+        list.setAdapter(adapter);
+
+        /*while (cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex("_id"));
             String cdate = cursor.getString(cursor.getColumnIndex("cdate"));
             String info = cursor.getString(cursor.getColumnIndex("info"));
             int amount = cursor.getInt(cursor.getColumnIndex("amount"));
             Log.d(TAG, "onCreate: " + id+"/"+cdate+"/"+info+"/"+amount);
-        }
+        }*/
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
