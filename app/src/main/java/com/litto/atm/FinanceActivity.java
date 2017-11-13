@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -36,7 +37,7 @@ public class FinanceActivity extends AppCompatActivity {
                 from, to,
 //                new String[]{"cdate", "info"},
 //                new int[]{android.R.id.text1, android.R.id.text2},
-                0
+                CursorAdapter.FLAG_AUTO_REQUERY
         );
         list.setAdapter(adapter);
 
