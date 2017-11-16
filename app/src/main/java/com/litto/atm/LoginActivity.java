@@ -1,5 +1,6 @@
 package com.litto.atm;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private CheckBox cbUserid;
+    private String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +49,11 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View view){
         EditText edUserid = findViewById(R.id.ed_userid);
         EditText edPasswd = findViewById(R.id.ed_passwd);
-        String userid = edUserid.getText().toString();
+        userid = edUserid.getText().toString();
         String passwd = edPasswd.getText().toString();
         //
-        try {
-            URL url = new URL("http://atm201605.appspot.com/login?uid="+userid+"&pw="+passwd);
-            InputStream is = url.openStream();
-            int data = is.read();
-            Log.d(TAG, "login: "+ data);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String url = "http://atm201605.appspot.com/login?uid="+ userid +"&pw="+passwd;
+        new LoginTask().execute(url);
 
 
         /*if ("jack".equals(userid) &&
@@ -72,5 +66,34 @@ public class LoginActivity extends AppCompatActivity {
 
     public void quit(View view){
 
+    }
+
+    class LoginTask extends AsyncTask<String, Void, Integer>{
+
+        @Override
+        protected Integer doInBackground(String... strings) {
+            int data = 0;
+            try {
+                URL url = new URL(strings[0]);
+                InputStream is = url.openStream();
+                data = is.read();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            Log.d(TAG, "login: "+ result);
+            if (result == 49){
+                getIntent().putExtra("USERID", userid);
+                setResult(RESULT_OK, getIntent());
+                finish();
+            }
+        }
     }
 }
