@@ -8,6 +8,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -44,12 +49,25 @@ public class LoginActivity extends AppCompatActivity {
         EditText edPasswd = findViewById(R.id.ed_passwd);
         String userid = edUserid.getText().toString();
         String passwd = edPasswd.getText().toString();
-        if ("jack".equals(userid) &&
+        //
+        try {
+            URL url = new URL("http://atm201605.appspot.com/login?uid="+userid+"&pw="+passwd);
+            InputStream is = url.openStream();
+            int data = is.read();
+            Log.d(TAG, "login: "+ data);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        /*if ("jack".equals(userid) &&
                 "1234".equals(passwd) ){
             getIntent().putExtra("USERID", userid);
             setResult(RESULT_OK, getIntent());
             finish();
-        }
+        }*/
     }
 
     public void quit(View view){
