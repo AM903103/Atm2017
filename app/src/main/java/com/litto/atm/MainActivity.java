@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view,
                             int position, long itemId) {
         Log.d(TAG, "onItemClick: " + position);
-        switch ((int)itemId){
+        switch ((int) itemId) {
             case R.drawable.func_balance:
                 break;
             case R.drawable.func_history:
@@ -162,19 +162,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null){
-//                LayoutInflater layoutInflater =
-//                        LayoutInflater.from(parent.getContext());
-                View view = getLayoutInflater()
+            ImageView image = null;
+            TextView tv = null;
+            View view = convertView;
+            if (convertView == null) {
+                view = getLayoutInflater()
                         .inflate(R.layout.icon_item, null);
-                ImageView image = view.findViewById(R.id.item_image);
-                TextView tv = view.findViewById(R.id.item_text);
-                tv.setText(functions[position]);
-                image.setImageResource(icons[position]);
-                convertView = view;
             }
-
-            return convertView;
+            image = view.findViewById(R.id.item_image);
+            tv = view.findViewById(R.id.item_text);
+            tv.setText(functions[position]);
+            image.setImageResource(icons[position]);
+            return view;
         }
     }
 }
