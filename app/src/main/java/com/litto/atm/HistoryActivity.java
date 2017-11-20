@@ -26,20 +26,21 @@ public class HistoryActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            String data = null;
+            StringBuffer sb = new StringBuffer();
             try {
                 URL url = new URL(strings[0]);
                 InputStream is = url.openStream();
                 BufferedReader in = new BufferedReader(new InputStreamReader(is));
-                data = in.readLine();
-
+                String data = in.readLine();
+                while(data != null){
+                    sb.append(data);
+                }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            return data;
+            return sb.toString();
         }
 
         @Override
