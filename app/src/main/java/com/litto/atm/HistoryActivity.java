@@ -12,6 +12,12 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class HistoryActivity extends AppCompatActivity {
 
     private String TAG = HistoryActivity.class.getSimpleName();
@@ -20,7 +26,24 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        new HistoryTask().execute("http://atm201605.appspot.com/h");
+//        new HistoryTask().execute("http://atm201605.appspot.com/h");
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://atm201605.appspot.com/h").build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d(TAG, "onResponse: " +
+                        response.body().string());
+            }
+        });
+
     }
     class HistoryTask extends AsyncTask<String, Void, String>{
 
