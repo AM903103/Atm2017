@@ -1,6 +1,7 @@
 package com.litto.atm;
 
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,8 +40,16 @@ public class HistoryActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d(TAG, "onResponse: " +
-                        response.body().string());
+                final String json = response.body().string();
+                Log.d(TAG, "onResponse: " + json);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new AlertDialog.Builder(HistoryActivity.this)
+                                .setMessage(json)
+                                .show();
+                    }
+                });
             }
         });
 

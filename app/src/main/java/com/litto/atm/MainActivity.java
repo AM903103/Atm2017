@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case R.drawable.func_balance:
                 break;
             case R.drawable.func_history:
+                startActivity(new Intent(this, HistoryActivity.class));
                 break;
             case R.drawable.func_news:
                 startActivity(new Intent(this, ContactActivity.class));
