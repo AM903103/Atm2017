@@ -34,6 +34,7 @@ public class HistoryActivity extends AppCompatActivity {
                 String data = in.readLine();
                 while(data != null){
                     sb.append(data);
+                    data = in.readLine();
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
