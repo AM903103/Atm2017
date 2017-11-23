@@ -55,24 +55,29 @@ public class HistoryActivity extends AppCompatActivity {
                 final String json = response.body().string();
                 Log.d(TAG, "onResponse: " + json);
                 try {
-                    List<Map<String , Object>> data = new ArrayList<>();
+//                    List<Map<String , Object>> data = new ArrayList<>();
+                    List<Transaction> data = new ArrayList<>();
                     JSONArray array = new JSONArray(json);
                     for (int i=0 ; i<array.length(); i++){
-                        Map<String, Object> map = new HashMap<>();
+//                        Map<String, Object> map = new HashMap<>();
                         JSONObject obj = array.getJSONObject(i);
                         String account = obj.getString("account");
                         String date = obj.getString("date");
                         int amount = obj.getInt("amount");
                         int type = obj.getInt("type");
-                        map.put("account", account);
+                        Transaction tran = new Transaction(account, date, amount, type);
+                        data.add(tran);
+                        /*map.put("account", account);
                         map.put("date", date);
                         map.put("amount", amount);
                         map.put("type", type);
-                        data.add(map);
+                        data.add(map);*/
                         Log.d(TAG, "obj: " + account + "/"
                                 + date + "/" + amount + "/" + type);
                     }
-                    String[] from = {"date", "amount"};
+
+
+                    /*String[] from = {"date", "amount"};
                     int[] to = {android.R.id.text1, android.R.id.text2};
                     final SimpleAdapter adapter = new SimpleAdapter(HistoryActivity.this,
                             data, android.R.layout.simple_list_item_2, from, to);
@@ -81,7 +86,7 @@ public class HistoryActivity extends AppCompatActivity {
                         public void run() {
                             list.setAdapter(adapter);
                         }
-                    });
+                    });*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
