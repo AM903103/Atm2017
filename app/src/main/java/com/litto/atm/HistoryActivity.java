@@ -8,6 +8,9 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,42 +57,13 @@ public class HistoryActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 final String json = response.body().string();
                 Log.d(TAG, "onResponse: " + json);
-                try {
-//                    List<Map<String , Object>> data = new ArrayList<>();
-                    List<Transaction> data = new ArrayList<>();
-                    JSONArray array = new JSONArray(json);
-                    for (int i=0 ; i<array.length(); i++){
-//                        Map<String, Object> map = new HashMap<>();
-                        JSONObject obj = array.getJSONObject(i);
-                        String account = obj.getString("account");
-                        String date = obj.getString("date");
-                        int amount = obj.getInt("amount");
-                        int type = obj.getInt("type");
-                        Transaction tran = new Transaction(account, date, amount, type);
-                        data.add(tran);
-                        /*map.put("account", account);
-                        map.put("date", date);
-                        map.put("amount", amount);
-                        map.put("type", type);
-                        data.add(map);*/
-                        Log.d(TAG, "obj: " + account + "/"
-                                + date + "/" + amount + "/" + type);
-                    }
+                // gson
+                Gson gson = new Gson();
+                ArrayList<Transaction> data =
+                        gson.fromJson(json,
+                                new TypeToken<ArrayList<Transaction>>(){}.getType());
+                Log.d(TAG, "onResponse: " + data.size());
 
-
-                    /*String[] from = {"date", "amount"};
-                    int[] to = {android.R.id.text1, android.R.id.text2};
-                    final SimpleAdapter adapter = new SimpleAdapter(HistoryActivity.this,
-                            data, android.R.layout.simple_list_item_2, from, to);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            list.setAdapter(adapter);
-                        }
-                    });*/
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
