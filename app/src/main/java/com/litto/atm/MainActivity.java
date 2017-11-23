@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d(TAG, "onItemClick: " + position);
         switch ((int) itemId) {
             case R.drawable.func_balance:
+                startActivity(new Intent(this, MapsActivity.class));
                 break;
             case R.drawable.func_history:
                 startActivity(new Intent(this, HistoryActivity.class));

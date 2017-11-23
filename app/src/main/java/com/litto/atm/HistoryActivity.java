@@ -72,7 +72,6 @@ public class HistoryActivity extends AppCompatActivity {
                 final TransactionAdapter adapter =
                         new TransactionAdapter(data);
 
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
