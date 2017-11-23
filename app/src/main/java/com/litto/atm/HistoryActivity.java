@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -41,6 +43,10 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        final RecyclerView recyclerView = findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         list = findViewById(R.id.list);
 //        new HistoryTask().execute("http://atm201605.appspot.com/h");
         OkHttpClient client = new OkHttpClient();
@@ -63,13 +69,17 @@ public class HistoryActivity extends AppCompatActivity {
                         gson.fromJson(json,
                                 new TypeToken<ArrayList<Transaction>>(){}.getType());
                 Log.d(TAG, "onResponse: " + data.size());
+                final TransactionAdapter adapter =
+                        new TransactionAdapter(data);
+
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        new AlertDialog.Builder(HistoryActivity.this)
-                                .setMessage(json)
-                                .show();
+                        recyclerView.setAdapter(adapter);
+//                        new AlertDialog.Builder(HistoryActivity.this)
+//                                .setMessage(json)
+//                                .show();
                     }
                 });
             }
